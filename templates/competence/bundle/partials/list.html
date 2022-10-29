@@ -1,0 +1,31 @@
+
+    <div class="mb-3">
+      <form method="POST">
+          {% csrf_token %}
+       <div class="row d-flex">
+           <h5>Pick A Competence</h5>
+           <div class="col-9">
+            <select class="form-control" name="comps" id="">
+                <option>Select Competence</option>
+                {% for comp in remaining_comps%}
+              <option value="{{comp.pk}}">{{comp.name}}</option>
+              {% endfor%}
+              
+            </select>
+           </div>
+           
+           <div class="col-2">
+                <button type="submit"  class="btn btn-secondary"
+                 hx-post="{% url 'competence:bundle-retrieve' obj.pk %}"
+                 hx-target={{delete_target}}
+                
+                >Submit</button>
+           </div>
+       </div>
+        
+      </form>
+      <div class="mt-4">  
+        {% include 'comp_qty/list.html' %}
+      </div>
+    </div>
+

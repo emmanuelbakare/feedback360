@@ -1,0 +1,45 @@
+<li class="item-list list-group-item d-flex justify-content-between align-content-center"
+{% if retrieve %} 
+    hx-get="{%url retrieve obj2.pk %}"
+    hx-target={{target}}
+{% endif %}
+>
+ 
+<span  class="obj-item">{{obj2.name}}  </span> 
+
+
+
+ <!-- Action button groups  -->
+
+ {% if delete %} 
+<form method="POST">
+
+    <span> 
+        <!-- click the DELETE button to delete the item  -->
+        
+            <span class="badge bg-danger rounded-pill pointer"
+                hx-delete="{% url delete obj2.pk  %}"
+                hx-target="closest section"
+               
+                hx-confirm="Are You sure you want to delete this {{name|title}} - {{obj2.name}}?"
+                hx-include="[name='parent_obj']"
+                
+            ><input type="hidden" value="{{obj.pk}}" name="parent_obj" >
+            <i class="bi-trash"></i></span>
+</form>
+     
+
+{% endif %}      
+
+{% if update %} 
+    <!-- click the update button and update the item  -->
+   
+        <span  class="badge bg-info rounded-pill pointer " 
+            hx-get="{% url update obj2.pk %}"
+            hx-target="closest li"
+            hx-swap="outerHTML"
+        > <i class="bi-pencil"></i>
+        </span>
+{% endif %}   
+</span>
+</li>

@@ -1,0 +1,64 @@
+{% include 'base.html' %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="card">
+            <div class="card-body">
+                 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="h5">Competence Bundle</div>
+                        <form class="d-flex mb-3" method="POST">
+                            {% csrf_token %}
+                            <div class="col me-1">
+            
+                                    <input type="text" name="bundle_name" id="" class="form-control" 
+                                        placeholder="Competence Bundle" 
+                                     >
+                            </div>
+                            <div class="col-sm-3">
+                                        
+                                        <button type="submit" class="btn btn-primary"
+                                        hx-post="{% url 'competence:bundle-create' %}"
+                                        hx-target="#competence-bundle-list"> Submit</button>
+                            </div>
+                             
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h5">Search Competence</div>
+                        <form  class="d-flex">
+                            <div class="col me-1"><input type="text" class="form-control" name="csearch" id="csearch" placeholder="Search for Competence"></div>
+                            <div class="col-3"><button type="submit" class="btn btn-primary">Search</button></div>
+                        </form>
+                        
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                         
+                                <h5> Bundle List</h5>
+                                <div id="competence-bundle-list">
+                                   {% include 'competence/bundle/partials/list.html' %}
+                                </div>
+                            
+                    </div>
+                    <div class="col-md-6">
+                               
+                                <h5>Competences List</h5>
+                                <div id="bundle-competences">
+                                    
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+    

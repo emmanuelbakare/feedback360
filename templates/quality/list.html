@@ -1,0 +1,43 @@
+<div class="h4">Qualities <span class="text-success">{{competence.name}}</span> </div>
+    {% if competence %}
+            <form class="d-flex mb-3" method="POST">
+                {% csrf_token %}
+                <div class="col me-1">
+
+                    
+                        <input type="text" name="quality_name" id="" class="form-control" 
+                            placeholder="Create  Qualities">
+                     
+                </div>
+                <div class="col-sm-3  ">
+                    <button type="submit" class="btn btn-primary"
+                    hx-post="{% url 'quality:create' competence.pk  %}"  
+                    hx-target="#quality-list"> Submit</button>
+                </div>
+                 
+    </form>
+    {% endif %}
+
+<ul class="list-group d-flex shadow-sm ">
+    {% if competence %}
+    <!-- <div class="h5"> Qualities for <span class="text-success">{{competence.name}}</span>  </div> -->
+        {% for quality in competence.qualities.all %}
+            <li class="list-group-item d-flex justify-content-between align-content-center"
+        >
+                {{quality.name}}
+                <!-- Delete button -->
+                <span class="badge bg-danger rounded-pill  d-flex align-items-center" style="cursor:pointer"
+                hx-delete="{% url 'quality:delete' quality.pk %}"
+                hx-confirm="Are You sure you want to delete {{quality.name}}"
+                hx-target="#quality-list"
+                >x</span>
+            </li>
+        {% endfor %}
+    {% else %}
+    <div class="display-7 text-align-center" >
+        No competence to display.
+    </div>
+    {% endif %}
+</ul>
+
+ 

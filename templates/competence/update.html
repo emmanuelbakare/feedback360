@@ -1,0 +1,18 @@
+<form class="mb-3" method="POST">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <input type="text" name="competence_name" id="" value="{{competence.name}}" class="form-control me-1" >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2"
+            data-bs-dismiss="modal"
+            hx-post="{% url 'competence:update' competence.pk %}"> Update</button>
+            <button type="reset"  class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> 
+        </div>
+
+    </div>
+     
+</form>

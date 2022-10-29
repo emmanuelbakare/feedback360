@@ -1,0 +1,40 @@
+<section>
+
+ 
+    {% if create %}
+        {% if other_obj %}
+        <div class="h4">{{name|title}} of <span class="text-white" >{{other_obj.name}}</span> </div>
+        {% else%}
+        <div class="h4">{{name|title}} </div>
+        {% endif%}
+        
+        <form class="d-flex mb-3" method="POST">
+            {% csrf_token %}
+            <div class="col me-1">
+                    <input type="text" name="form_name" id="" class="form-control" 
+                        placeholder="Create  {{name}}">
+            </div>
+            <div class="col-sm-3  ">
+                <button type="submit" class="btn btn-primary"
+                {% if requireid %}
+                    hx-post="{% url create other_obj.pk  %}"  
+                {% else %}
+                    hx-post="{% url create  %}" 
+                {% endif %}
+
+                hx-target="closest section"
+                > Submit</button>
+            </div>
+            
+        </form>
+        {% endif %}
+         
+        <ul class=" list-group  shadow-sm mb-3 datalist" >
+            {% for obj2 in object_list %}
+                {% include 'comp_qty/item.html' %}
+            {% empty %}
+              <div class="card card-body">No content to list</div>  
+            {% endfor %}
+        </ul>
+</section>
+

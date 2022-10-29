@@ -1,0 +1,32 @@
+<li class=" item-list list-group-item d-flex justify-content-between align-content-center"
+hx-get="{% url 'quality:list'  competence.pk %}"
+hx-target="#quality-list"
+hx-trigger="click, dblclick"
+id="obj-{{competence.pk}}"
+>
+
+    
+    
+<span  id="competence-item">{{competence.name}}</span> 
+
+ <!-- Action button groups  -->
+<span> 
+
+    <span class="badge bg-danger rounded-pill pointer"
+    hx-delete="{% url 'competence:delete' competence.pk %}"
+    hx-confirm="Are You sure you want to delete this Competence - {{competence.name}}?"
+    hx-target="#competence-list"
+    hx-value="{{competence.name}}"
+    >x</span>
+
+   
+    <span  class="badge bg-info rounded-pill pointer " 
+        hx-get="{% url 'competence:update2' competence.pk %}"
+        hx-target="closest li"
+        hx-swap="outerHTML"
+        
+      >>>
+    </span>
+
+</span>
+</li>

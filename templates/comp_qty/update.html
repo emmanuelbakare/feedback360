@@ -1,0 +1,18 @@
+<li class="item-list list-group-item bg-light">
+    <form class="mb-3" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <input type="text" name="obj_name" value="{{obj2.name}}" class="form-control me-1" >
+            </div>
+            
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary"
+               
+                hx-post="{% url update obj2.pk %}"
+                hx-target="closest li"
+                hx-swap="outerHTML"> Update</button>
+            </div>
+        </div>
+    </form>
+</li>

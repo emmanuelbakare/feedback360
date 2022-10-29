@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                {% for header in headers %}
+
+                <th scope="col">{{header}}</th>
+                {% endfor %}
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in object_list %}
+                <tr class="">
+                    {% for header in headers %}
+                        <td scope="row">{{ obj }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+           
+        </tbody>
+    </table>
+
+
+{% endblock content %}
+        
+    </div>
+    
+</body>
+</html>

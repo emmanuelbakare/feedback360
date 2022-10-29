@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+ <div class="row mt-5">
+     <div class="col-md-4 offset-md-4  ">
+         <div class="card bg-light p-3">
+             <div class="card-body ">
+                 <h3 class="card-title mb-3">Register Form</h3>
+                 <form  method="post">
+                        {%csrf_token%}
+                        {{form}}
+                        <button class="btn btn-primary form-control mt-3" type="submit">Register</button>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+{% endblock content %}
+    

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-2 my-5">
+        <div class="my-2">
+            {% include 'assessment/_add_modal.html'%}
+        </div>
+        <table class="table table-striped table-light">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Accessor</th>
+        
+                    <th>Assessed</th>
+                    <th>Published</th>
+                    <th>Started</th>
+                    <th>Completed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asmt in assessments%}
+                <tr>
+                    <td scope="row">{{asmt.start_date}}</td>
+                    <td>{{asmt.end_date}}</td>
+                    <td>{{asmt.assessor}}</td>
+                    <td>{{asmt.assessed}}</td>
+                    <td><input type="checkbox" {% if asmt.published%} checked{% endif %}  /> </td>
+                    <td><input type="checkbox" {% if asmt.started%} checked{% endif %} /> </td>
+                    <td><input type="checkbox" {% if asmt.completed%} checked{% endif %} /> </td>
+                    <td> 
+                        <a href="#"> edit</a>
+                        <a href="#"> delete</a>
+                    </td>
+                </tr>
+                {% endfor%}
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock%}

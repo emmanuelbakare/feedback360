@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+    <script src="{% static 'sortable/Sortable.js' %}"></script>
+{% endblock header %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-4 offset-1">
+        <div class="h3">Drop all the things</div>
+    <ul id="test" class="list-group">
+        <li class="list-group-item active">Competence One</li>
+        <li class="list-group-item">Competence Two</li>
+        <li class="list-group-item">Competence Three</li>
+        <li class="list-group-item ">Competence Four</li>
+        <li class="list-group-item">Competence Five</li>
+        <li class="list-group-item">Competence Six</li>
+        <li class="list-group-item">Competence Seven</li>
+    </ul>
+    </div>
+    <div class="col-4 offset-1">
+        <div class="h3"> Item One</div>
+    <ul id="test2" class="list-group">
+        <li class="list-group-item active">Quality One</li>
+        <li class="list-group-item">Quality Two</li>
+        <li class="list-group-item">Quality Three</li>
+        <li class="list-group-item ">Quality Four</li>
+        <li class="list-group-item">Quality Five</li>
+        <li class="list-group-item">Quality Six</li>
+        <li class="list-group-item">Quality Seven</li>
+    </ul>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block footer %}
+    <script > 
+        new Sortable(test, {
+            animation: 150,
+            group:'comps',
+        });
+        new Sortable(test2, {
+            animation: 150,
+            group:'comps',
+        });
+    </script>
+{% endblock footer %}
+    
+    

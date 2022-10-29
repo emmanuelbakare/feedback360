@@ -1,0 +1,23 @@
+ body{
+     background-color:rgb(191, 191, 191)
+ }
+
+.pointer {
+    cursor:pointer
+}
+
+.activeli{
+    background-color:#5f7176;
+    color:white;
+    font-weight: bold;
+}
+
+.hoverli{
+    background-color:#e4e2dc;
+    color:white;
+    font-weight: bold;
+}
+.outli{
+    background-color:#ffffff;
+    color:#333
+}
