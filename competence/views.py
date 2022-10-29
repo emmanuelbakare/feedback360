@@ -83,12 +83,12 @@ def table_comp(request):
     endpoints=EndPoints(competences, defaults=True)
     
     # model header -- retrieve only the fields in the model
-    # headers=[field.name for field in Competence._meta.get_fields() if isinstance(field, Field)]
-    headers=get_model_fields(Competence)
-    endpoints.new_path('headers', headers)
+    headers=get_model_fields(Competence, show=['name', 'created','modified']) # show specific fields
+    # headers=get_model_fields(Competence) # show all fields
+    endpoints.new_path('headers', headers) 
 
     context=endpoints.context
-    print('CONTEXT', context)
+    # print('CONTEXT', context)
     return render(request, 'table/table.html', context)
 
 

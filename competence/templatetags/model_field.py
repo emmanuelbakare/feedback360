@@ -3,5 +3,6 @@ from django import template
 register = template.Library()
 
 @register.filter
-def addfield(value):
-    return 
+def addfield(model, field):
+
+    return getattr(model,field)

@@ -113,10 +113,26 @@ class EndPoints:
         return model_base.objects.all()
     
 
-def get_model_fields(cls):
-    ''' get a model Class and return all the fields it contains'''
+def get_model_fields(cls, show=[], hide=[]):
+    ''' get a model Class and return all the fields it contains
+        e.g. get_model_fields(Model_Obj)
+        show =  if you want to only return specific fields, specify the fields in the show list parameter
+            e.g. get_model_fields(Model_Obj, show=['name', 'description]
+        hide = if you want to exclude any field from the result specify it in the exclude parameter
+            e.g. get_model_fields(Model_Obj, hide=['id'])
+    '''
     fields=cls._meta.get_fields()
-    return [field.name for field in fields if isinstance(field, models.fields.Field)]
+    real_fields=[field.name for field in fields if isinstance(field, models.fields.Field)]
+
+    if show:  # return only fields specified in show
+        real_fields_to_show=[new_field for new_field in show if new_field in real_fields]
+        print('RETURNED FIELDS', real_fields_to_show)
+        return real_fields_to_show
+    if hide: # remove the fields specified in hide
+        real_fields_to_show=[new_field for new_field in real_fields if new_field not in hide]
+        return real_fields_to_show
+
+    return real_fields # return all the fields if hide or show is not specified
     
 
 # endpoint=EndPoints("competence",pk=20, defaults=True)

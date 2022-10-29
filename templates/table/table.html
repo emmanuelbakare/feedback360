@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% load model_field %}
+
 {% block content %}
-    <table class="table table-primary">
+    <table class="table">
         <thead>
             <tr>
                 {% for header in headers %}
@@ -15,7 +17,7 @@
             {% for obj in object_list %}
                 <tr class="">
                     {% for header in headers %}
-                        <td scope="row">{{ obj }}</td>
+                        <td scope="row">{{ obj | addfield:header }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
@@ -27,6 +29,5 @@
 {% endblock content %}
         
     </div>
-    
 </body>
 </html>
