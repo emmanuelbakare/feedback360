@@ -1,0 +1,28 @@
+{% load model_field %}
+
+  <tr class="" 
+  {% if retrieve %} 
+    hx-get="{%url retrieve obj.pk %}"
+    hx-target="{{target}}"
+   {% endif %}
+  >
+    {% if headers.sno%}
+        <td scope="col">{{forloop.counter}}</td>
+    {% endif%}
+    {% for header in headers.fields %}
+    <!-- addfield:header is a filter that merges model object and its fields eg. 
+      if model is competence and it as fields like name, age etc then addfield:header will
+      do competence.name, competence.age 
+     -->
+        <td scope="row">{{ obj | addfield:header }}</td> 
+
+    {% endfor %}
+
+    {% if  update or delete %}
+      <td scope="row" class="text-sm">
+        {% if update %} <a href="{%url update obj.pk %}">update </a>  {% endif%}
+        {% if delete %} <a href="{%url delete obj.pk %}">delete </a>  {% endif%}
+      </td>
+    {% endif%}
+
+</tr>

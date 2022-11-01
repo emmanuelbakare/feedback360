@@ -12,6 +12,9 @@ urlpatterns = [
 
     path('create/', views.competenceCreate, name="create"),
     path('table/', views.table_comp, name="table-comp"),
+    path('table/<int:pk>/', views.table_qty, name="table_qty"),
+
+
     # path('endpoints/', views.get_endpoints, name="endpoints"), 
     
     path('<int:pk>/', include([

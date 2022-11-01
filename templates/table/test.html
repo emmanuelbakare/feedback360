@@ -1,0 +1,10 @@
+{% extends 'base.html' %} 
+
+{% block content%}
+
+<h3> OBJECT LIST= {{object_list}}</h3>
+<h4> Link to {{retrieve }}</h4>
+
+<a href="{%url retrieve pk=2 %}" target="_blank"> Qualities</a>
+
+{% endblock content%}

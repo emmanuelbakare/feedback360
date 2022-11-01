@@ -16,17 +16,19 @@ class EndPoints:
         if isinstance(model_name,models.Model):
             self.obj2 = model_name
             self.name= model_name.__class__.__name__.lower()
+            # self.name= model_name.__class__.__name__.lower() if model_name.first() else ''
             
         
         elif isinstance(model_name, models.query.QuerySet):
             self.object_list=model_name
-            self.name=model_name[0].__class__.__name__.lower() 
+            self.name=model_name.first().__class__.__name__.lower() if model_name.first() else '***'
 
         elif isinstance(model_name, str):
             self.name=model_name
             if pk:
                 self.obj2 = MakeModelOrQueryset(model_name,app_name, pk=pk).queryset
             else:
+                print('ABOUT TO MAKE QUERYSET WITH MakeModelOrQueryset')
                 self.object_list = MakeModelOrQueryset(model_name,app_name).queryset
 
 
@@ -44,6 +46,13 @@ class EndPoints:
         
         return self
 
+    def remove_path(self,key):
+        ''' delete an existing dictionary item'''
+        if self.__dict__.get(key):
+            del self.__dict__[key]
+        return self     
+
+
     def defaults(self):
         ''' return sets of urls paths that is most likely  to be used to generate endpoints
         this include the create, retreive, update and delete urls '''
@@ -58,6 +67,8 @@ class EndPoints:
         
     @property 
     def query_object(self):
+        ''' returns the Model object. Either a queryset or a model object instance. 
+        If there is no queryset or model instance then return None'''
         if hasattr(self,'object_list'):
             return self.object_list
         elif hasattr(self,'obj2'):
@@ -80,60 +91,40 @@ class EndPoints:
 
     
 
-    def get_model(self, model_name, app_name=None, pk={}):
-        ''' Build a queryset from only the model name
-         model name is entered as a string 'model_name' 
+    # def get_model(self, model_name, app_name=None, pk={}):
+    #     ''' Build a queryset from only the model name
+    #      model name is entered as a string 'model_name' 
 
-         use:
-            get_model(model_name, app_name)
+    #      use:
+    #         get_model(model_name, app_name)
          
-         argument:
-            model_name:str|queryset: a queryset instance or name of the model-system generates the QuerySet
-            app_name: the app name  (created with manage.py startapp app_name)
+    #      argument:
+    #         model_name:str|queryset: a queryset instance or name of the model-system generates the QuerySet
+    #         app_name: the app name  (created with manage.py startapp app_name)
         
-         returns:
-            queryset
-            '''
-        #if model_name is a queryset return it if not build the queryset from the model_name 
+    #      returns:
+    #         queryset
+    #         '''
+    #     #if model_name is a queryset return it if not build the queryset from the model_name 
        
-        if isinstance(model_name, models.query.QuerySet):
-            return model_name
+    #     if isinstance(model_name, models.query.QuerySet):
+    #         return model_name
         
-        # if the app_name is same name as the model_name or app_name is not inputed    
-        model_name=model_name.lower()
-        if app_name is None or len(app_name)==0:
-            model_base=apps.get_model(model_name, model_name)
-        else:
-            model_base=apps.get_model(app_name,model_name)
+    #     # if the app_name is same name as the model_name or app_name is not inputed    
+    #     model_name=model_name.lower()
+    #     if app_name is None or len(app_name)==0:
+    #         model_base=apps.get_model(model_name, model_name)
+    #     else:
+    #         model_base=apps.get_model(app_name,model_name)
         
 
         
            
-        # return self._get_model_obj_or_queryset(model_base,pk)
-        return model_base.objects.all()
+    #     # return self._get_model_obj_or_queryset(model_base,pk)
+    #     return model_base.objects.all()
     
 
-def get_model_fields(cls, show=[], hide=[]):
-    ''' get a model Class and return all the fields it contains
-        e.g. get_model_fields(Model_Obj)
-        show =  if you want to only return specific fields, specify the fields in the show list parameter
-            e.g. get_model_fields(Model_Obj, show=['name', 'description]
-        hide = if you want to exclude any field from the result specify it in the exclude parameter
-            e.g. get_model_fields(Model_Obj, hide=['id'])
-    '''
-    fields=cls._meta.get_fields()
-    real_fields=[field.name for field in fields if isinstance(field, models.fields.Field)]
 
-    if show:  # return only fields specified in show
-        real_fields_to_show=[new_field for new_field in show if new_field in real_fields]
-        print('RETURNED FIELDS', real_fields_to_show)
-        return real_fields_to_show
-    if hide: # remove the fields specified in hide
-        real_fields_to_show=[new_field for new_field in real_fields if new_field not in hide]
-        return real_fields_to_show
-
-    return real_fields # return all the fields if hide or show is not specified
-    
 
 # endpoint=EndPoints("competence",pk=20, defaults=True)
 # print('ENDPOINT OBJECT \n', endpoint)

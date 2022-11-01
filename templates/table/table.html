@@ -1,33 +1,32 @@
-{% extends 'base.html' %}
-
-{% load model_field %}
-
-{% block content %}
-    <table class="table">
-        <thead>
+    <h2> {{name | title}}
+         
+    </h2>
+    {% if create %}
+    <!-- <div class="mb-1"> <a  class="btn btn-primary" href="#" role="button">Add {{name | title}}</a> </div> -->
+    <div class="mb-1"> {% include 'table/table_create_modal.html' %}</div>
+    {% endif %}
+    <table class="{{ table_classes}}">
+        <thead class="table-dark">
             <tr>
-                {% for header in headers %}
+                {% if headers.sno%}
+                    <th scope="col">Sno</th>
+                {% endif%}
+                {% for header in headers.fields %}
 
                 <th scope="col">{{header}}</th>
                 {% endfor %}
+
+                {% if create or update or delete %}
+                    <th scope="col">Action</th>
+                {% endif%}
             
             </tr>
         </thead>
         <tbody>
             {% for obj in object_list %}
-                <tr class="">
-                    {% for header in headers %}
-                        <td scope="row">{{ obj | addfield:header }}</td>
-                    {% endfor %}
-                </tr>
+               
+                 {% include 'table/row.html' %}
             {% endfor %}
            
         </tbody>
     </table>
-
-
-{% endblock content %}
-        
-    </div>
-</body>
-</html>
