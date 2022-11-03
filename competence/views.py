@@ -7,10 +7,9 @@ from quality.models import Quality
 from django.db.models.fields import Field 
 
 from django.http import HttpResponse, JsonResponse
-from rest_framework.response import Response
 
 from utils.build import EndPoints
-from utils.models import MakeModelOrQueryset, get_model_fields
+from utils.models import MakeModelOrQueryset, get_model_fields, ModelFields
 # Create your views here.
 
  
@@ -96,7 +95,9 @@ def table_qty(request, pk=None):
 
     endpoints=EndPoints(qualities)
 
-    headers=get_model_fields(qualities, show=['name','created']) # retrieve the fields to display 
+    # headers=get_model_fields(qualities, show=['name','created']) # retrieve the fields to display 
+    
+    headers=ModelFields(qualities).show(['name','created'])# retrieve the fields to display 
     endpoints.new_path('headers',headers) # add the fields to the context dict to pass to the rendering html template
     endpoints.new_path('table_classes','table table-striped table-bordered') # style the table used to display the result
     # endpoints.new_path('delete', 'quality:delete')
@@ -111,3 +112,23 @@ def table_qty(request, pk=None):
 
 
 
+def comptest2(request):
+    
+    mf=ModelFields(Competence)
+    mf2=ModelFields(Competence).show(fields=['name','created'])
+    show_fields=mf.show(fields=['name','created'])
+    hide_fields=mf.hide(fields=['created','modified'])
+    all_fields=mf.all()
+    
+    print('ModelFields mf',mf)
+    print('ALL FIELDS all_fields',all_fields)
+    print("ModelFields.show",mf2)
+    print('SHOW FIELDS show_fields',show_fields)
+
+    print('HIDE FIELDS hide_fields',hide_fields)
+    return JsonResponse({'model':str(mf),
+                            'all_fields':all_fields, 
+                            'show_fields':show_fields, 
+                            'hide_ fields':hide_fields,
+                            'ModelFields.show':mf2
+                            })
